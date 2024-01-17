@@ -114,5 +114,16 @@ def main():
                 st.write("Téléphone :", result['phone'])
                 st.write("-" * 30)
 
+# Ajout du pied de page
+    st.markdown(
+        """
+        <div style="text-align:center; margin-top: 30px; color: #888;">
+            <hr>
+            <p>© 2024 Big BoSs. Tous droits réservés.</p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    
 if __name__ == "__main__":
     main()
