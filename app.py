@@ -96,7 +96,7 @@ def main():
 
     local_date = st.date_input("Date :", min_value=datetime(2022, 1, 1), max_value=datetime(2025, 1, 1))
     route_number = st.text_input("Numéro de route :")
-     scannable_id = st.text_input("Numéro de colis :")
+    scannable_id = st.text_input("Numéro de colis :")
 
     if st.button("Rechercher"):
         formatted_date = local_date.strftime("%Y-%m-%d")
