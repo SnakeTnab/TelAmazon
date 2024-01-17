@@ -92,11 +92,11 @@ def get_info_by_scannable_id(route_data, scannable_id):
     return matching_infos
 
 def main():
-    st.title("Visualiseur de données logistiques Amazon")
+    st.title("Amazon Client")
 
-    scannable_id = st.text_input("ID scannable :")
-    local_date = st.date_input("Date locale :", min_value=datetime(2022, 1, 1), max_value=datetime(2025, 1, 1))
+    local_date = st.date_input("Date :", min_value=datetime(2022, 1, 1), max_value=datetime(2025, 1, 1))
     route_number = st.text_input("Numéro de route :")
+     scannable_id = st.text_input("Numéro de colis :")
 
     if st.button("Rechercher"):
         formatted_date = local_date.strftime("%Y-%m-%d")
