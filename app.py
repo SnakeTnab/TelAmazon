@@ -97,7 +97,8 @@ def share_on_whatsapp(result):
     message = f"Nom: {result['name']}\nAdresse 1: {result['address1']}\nAdresse 2: {result['address2']}\nCode postal: {result['postalCode']}\nVille: {result['city']}\nTéléphone: {result['phone']}"
     
     # Créez un lien WhatsApp avec le message pré-rempli
-    whatsapp_link = f"https://wa.me/?text={urllib.parse.quote(message)}"
+    whatsapp_link = f"https://wa.me/?text={urllib.parse.quote_plus(message)}"
+    print("WhatsApp Link:", whatsapp_link)  # Ajoutez cette ligne
     
     # Affichez le lien généré
     st.success("Lien WhatsApp généré:")
