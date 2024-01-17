@@ -3,55 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amazon Data Search</title>
+    <title>Amazon Client</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+    <!-- Apple Touch Icon for Home Screen -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+
+    <!-- Title for Home Screen -->
+    <meta name="apple-mobile-web-app-title" content="Amazon Client">
 
     <!-- Add Bootstrap CSS link -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Add Bootstrap-datepicker CSS link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            padding-top: 20px;
+        }
+
+        .container {
+            max-width: 600px; /* Ajustez la largeur selon vos besoins */
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        /* Ajoute une bordure autour des champs de formulaire avec focus */
+        :focus {
+            outline: 2px solid #007bff;
+        }
+
+        /* Ajoute un contour rouge aux champs de formulaire invalides */
+        .is-invalid {
+            border-color: #dc3545;
+        }
+
+        /* Style pour les boutons de formulaire */
+        button {
+            margin-right: 10px;
+        }
+
+        /* Ajoute un espacement en haut des résultats */
+        #results {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-4">Amazon Data Search</h1>
+        <!-- Header -->
+        <h1 class="mt-4">Amazon Client</h1>
 
-        <form method="post" class="mt-4">
+        <!-- Search Form -->
+        <form method="post" class="mt-4" id="searchForm" role="form" aria-labelledby="formTitle">
+            <!-- Date Input -->
             <div class="form-group">
-                <label for="local_date">Enter Date (YYYY-MM-DD):</label>
-                <input type="text" class="form-control" id="local_date" name="local_date" placeholder="Leave empty for today">
+                <label for="local_date">Entre la date:</label>
+                <input type="text" class="form-control datepicker" id="local_date" name="local_date" aria-describedby="dateHelp">
+                <small id="dateHelp" class="form-text text-muted">Format: YYYY-MM-DD</small>
             </div>
 
+            <!-- Route Number Input -->
             <div class="form-group">
-                <label for="route_number">Enter Route Number:</label>
-                <input type="text" class="form-control" id="route_number" name="route_number" required>
+                <label for="route_number">Entre le numero de route:</label>
+                <input type="text" class="form-control" id="route_number" name="route_number" required aria-describedby="routeNumberError">
+                <div id="routeNumberError" class="invalid-feedback">
+                    Veuillez entrer un numéro de route valide.
+                </div>
             </div>
 
+            <!-- Scannable ID Input -->
             <div class="form-group">
-                <label for="scannable_id">Enter Scannable ID:</label>
-                <input type="text" class="form-control" id="scannable_id" name="scannable_id" required>
+                <label for="scannable_id">Entre le numero de colis:</label>
+                <input type="text" class="form-control" id="scannable_id" name="scannable_id" required aria-describedby="scannableIdError">
+                <div id="scannableIdError" class="invalid-feedback">
+                    Veuillez entrer un numéro de colis valide.
+                </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Search</button>
+            <!-- Search and Clear Buttons -->
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+            <button type="button" class="btn btn-secondary" onclick="clearResults()">Effacer</button>
+            <!-- <button type="button" class="btn btn-success" onclick="shareOnWhatsApp()">Partager sur WhatsApp</button>-->
         </form>
 
-        {% if results %}
-            <div class="mt-4">
-                <h2>Results:</h2>
+        <!-- Search Results -->
+        <div id="results" class="mt-4">
+            {% if results %}
+                <h2>Client:</h2>
                 <ul class="list-group">
                     {% for result in results %}
                         <li class="list-group-item">
-                            <strong>Name:</strong> {{ result.name }}<br>
-                            <strong>Address:</strong> {{ result.address1 }} {{ result.address2 }}<br>
-                            <strong>Postal Code:</strong> {{ result.postalCode }}<br>
-                            <strong>City:</strong> {{ result.city }}<br>
-                            <strong>Phone:</strong> {{ result.phone }}<br>
+                            <!-- Display Client Information -->
+                            <strong>Nom:</strong> {{ result.name }}<br>
+                            <strong>Adresse:</strong> {{ result.address1 }} <br>
+                             <strong>Adresse suite:</strong>{{ result.address2 }}<br>
+                            <strong>Code Postal:</strong> {{ result.postalCode }}<br>
+                            <strong>Ville:</strong> {{ result.city }}<br>
+                            <strong><i class="fas fa-phone"></i>Telephone:</strong> {{ result.phone }}<br>
                         </li>
                     {% endfor %}
                 </ul>
-            </div>
-        {% endif %}
+
+            <button type="button" class="btn btn-success" onclick="shareOnWhatsApp()">Partager sur WhatsApp</button>
+
+            {% endif %}
+        </div>
+
+        <!-- Bouton pour ajouter à l'écran d'accueil -->
+        <!-- ... Votre code HTML existant ... -->
+
+<div style="text-align:center; margin-top:20px;">
+    <a href="#" onclick="addToHomeScreen()">Ajouter à l'écran d'accueil</a>
+</div>
+
+<!-- Footer avec signature et copyright -->
+<footer class="mt-4 text-center">
+    <p>&copy; 2023 BiG BoSs . Tous droits réservés.</p>
+</footer>
+
+<!-- ... Fin de votre code HTML existant ... -->
+
     </div>
 
     <!-- Add Bootstrap JS and Popper.js (required for some Bootstrap features) -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Add Bootstrap-datepicker JS script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script>
+    function clearResults() {
+        // Clear the search results
+        $('#results').empty();
+    }
+
+    function shareOnWhatsApp() {
+        var resultsText = "Voici les coordonnées du client :\n";
+
+        {% for result in results %}
+        resultsText += "Nom : {{ result.name }}\n";
+        resultsText += "Adresse : {{ result.address1 }}\n";
+        resultsText += "Adresse suite : {{ result.address2 }}\n";
+        resultsText += "Code Postal : {{ result.postalCode }}\n";
+        resultsText += "Ville : {{ result.city }}\n";
+        resultsText += "Téléphone : {{ result.phone }}\n\n";
+        {% endfor %}
+
+        // Crée un message WhatsApp avec les résultats
+        var whatsappMessage = encodeURIComponent(resultsText);
+
+        // Crée le lien de partage WhatsApp
+        var whatsappLink = "https://api.whatsapp.com/send?text=" + whatsappMessage;
+
+        // Ouvre le lien de partage WhatsApp dans une nouvelle fenêtre
+        window.open(whatsappLink, '_blank');
+    }
+
+    // Fonction pour mettre en majuscules la valeur du champ scannable_id
+    function uppercaseScannableId() {
+        var scannableIdInput = $('#scannable_id');
+        var scannableIdValue = scannableIdInput.val();
+        scannableIdInput.val(scannableIdValue.toUpperCase());
+    }
+
+    $(document).ready(function () {
+        // Initialisez les datepickers
+        var datePicker = $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+
+        // Chargez la date depuis le stockage local, s'il existe
+        var storedDate = localStorage.getItem('storedDate');
+        if (storedDate) {
+            datePicker.datepicker('setDate', new Date(storedDate));
+        }
+
+        // Chargez le numéro de route depuis le stockage local, s'il existe
+        var storedRouteNumber = localStorage.getItem('storedRouteNumber');
+        if (storedRouteNumber) {
+            $('#route_number').val(storedRouteNumber);
+        }
+
+        // Fonction pour valider le formulaire côté client
+        function validateForm() {
+            var isValid = true;
+
+            // Vérifiez la date
+            var dateInput = $('#local_date');
+            if (dateInput.val() === '') {
+                dateInput.addClass('is-invalid');
+                isValid = false;
+            } else {
+                dateInput.removeClass('is-invalid');
+            }
+
+            // Vérifiez le numéro de route
+            var routeNumberInput = $('#route_number');
+            if (routeNumberInput.val() === '') {
+                routeNumberInput.addClass('is-invalid');
+                $('#routeNumberError').text('Veuillez entrer un numéro de route valide.');
+                isValid = false;
+            } else {
+                routeNumberInput.removeClass('is-invalid');
+            }
+
+            return isValid;
+        }
+
+        // Ajoutez une fonction pour gérer la soumission du formulaire
+        $('#searchForm').submit(function (event) {
+            if (validateForm()) {
+                // Mettez en majuscules la valeur de scannable_id avant la soumission du formulaire
+                uppercaseScannableId();
+
+                // Stockez la date dans le stockage local
+                localStorage.setItem('storedDate', datePicker.datepicker('getDate'));
+
+                // Stockez le numéro de route dans le stockage local
+                localStorage.setItem('storedRouteNumber', $('#route_number').val());
+            } else {
+                event.preventDefault(); // Empêche l'envoi du formulaire si la validation échoue
+            }
+        });
+    });
+</script>
 </body>
 </html>
