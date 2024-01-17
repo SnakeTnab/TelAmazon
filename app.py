@@ -94,12 +94,13 @@ def main():
     st.title("Visualiseur de données logistiques Amazon")
 
     scannable_id = st.text_input("ID scannable :")
-    local_date = st.text_input("Date locale :")
+    local_date = st.date_input("Date locale :", min_value=datetime(2022, 1, 1), max_value=datetime(2025, 1, 1))
     route_number = st.text_input("Numéro de route :")
 
     if st.button("Rechercher"):
-        results = search_amazon_data(scannable_id, local_date, route_number)
-
+        formatted_date = local_date.strftime("%Y-%m-%d")
+        results = search_amazon_data(scannable_id, formatted_date, route_number)
+        
         if not results:
             st.warning("Aucun résultat trouvé.")
         else:
