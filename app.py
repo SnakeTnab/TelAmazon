@@ -5,7 +5,7 @@ from datetime import datetime
 import urllib.parse
 
 
-@st.cache
+@st.cache_data
 def search_amazon_data(scannable_id, local_date, route_number):
     cookies = {
         'ubid-acbfr': '257-2265996-3861609',
