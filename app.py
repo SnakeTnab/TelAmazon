@@ -145,4 +145,4 @@ def internal_server_error(error):
 
 # Lancer l'application Flask sur le port 8501
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8501)
+    app.run(host='0.0.0.0', port=8502)
