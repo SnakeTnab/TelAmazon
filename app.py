@@ -99,8 +99,9 @@ def share_on_whatsapp(result):
     # Créez un lien WhatsApp avec le message pré-rempli
     whatsapp_link = f"https://wa.me/?text={urllib.parse.quote(message)}"
     
-    # Ouvrez WhatsApp Web dans le navigateur
-    webbrowser.open(whatsapp_link)
+    # Affichez le lien généré
+    st.success("Lien WhatsApp généré:")
+    st.markdown(f"[Partager sur WhatsApp]({whatsapp_link})", unsafe_allow_html=True)
     
 def main():
     st.title("Amazon Client")
