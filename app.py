@@ -99,6 +99,8 @@ def main():
     scannable_id = st.text_input("Numéro de colis :")
 
     if st.button("Rechercher"):
+        # Convertir scannable_id en majuscules
+        scannable_id = scannable_id.upper()
         formatted_date = local_date.strftime("%Y-%m-%d")
         results = search_amazon_data(scannable_id, formatted_date, route_number)
         
