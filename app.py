@@ -143,6 +143,6 @@ def get_info_by_scannable_id(route_data, scannable_id):
 def internal_server_error(error):
     return render_template('index.html', error_message="Une erreur interne s'est produite. Veuillez réessayer."), 500
 
-# Lancer l'application Flask sur le port 8080
+# Lancer l'application Flask sur le port 8501
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+    app.run(host='0.0.0.0', port=8501)
