@@ -2,6 +2,8 @@ import streamlit as st
 import requests
 import json
 from datetime import datetime
+import urllib.parse
+
 
 @st.cache
 def search_amazon_data(scannable_id, local_date, route_number):
@@ -90,7 +92,17 @@ def get_info_by_scannable_id(route_data, scannable_id):
 
     matching_infos = matching_infos[1:]
     return matching_infos
-
+    
+def share_on_whatsapp(result):
+    message = f"Nom: {result['name']}\nAdresse 1: {result['address1']}\nAdresse 2: {result['address2']}\nCode postal: {result['postalCode']}\nVille: {result['city']}\nTéléphone: {result['phone']}"
+    
+    # Créez un lien WhatsApp avec le message pré-rempli
+    whatsapp_link = f"https://wa.me/?text={urllib.parse.quote(message)}"
+    
+    # Affichez le lien généré
+    st.success("Lien WhatsApp généré:")
+    st.markdown(f"[Partager sur WhatsApp]({whatsapp_link})", unsafe_allow_html=True)
+    
 def main():
     st.title("Amazon Client")
 
@@ -115,6 +127,10 @@ def main():
                 st.write("Ville :", result['city'])
                 st.write("Téléphone :", result['phone'])
                 st.write("-" * 30)
+                
+             # Ajoutez un bouton pour partager sur WhatsApp
+            if st.button("Partager sur WhatsApp"):
+                    share_on_whatsapp(result)
 
 # Ajout du pied de page
     st.markdown(
