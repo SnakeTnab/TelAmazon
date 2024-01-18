@@ -105,8 +105,14 @@ def share_on_whatsapp(result):
     st.markdown(f"[Partager sur WhatsApp]({whatsapp_link})", unsafe_allow_html=True)
     
 def main():
-    # Définir l'icône de la page
-    st.set_page_config(page_icon="📞", page_title="Amazon Client")
+    # Définir l'icône de la page avec un emoji téléphone
+    st.set_page_config(
+        page_icon="📞",
+        page_title="Amazon Client",
+        layout="wide",  # Si vous souhaitez utiliser une mise en page étendue
+        initial_sidebar_state="auto",
+    )
+
     st.title("Amazon Client")
 
     local_date = st.date_input("Date :", min_value=datetime(2022, 1, 1), max_value=datetime(2025, 1, 1))
