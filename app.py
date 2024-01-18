@@ -106,12 +106,7 @@ def share_on_whatsapp(result):
     
 def main():
     # Définir l'icône de la page avec un emoji téléphone
-    st.set_page_config(
-        page_icon="📞",
-        page_title="Amazon Client",
-        layout="wide",  # Si vous souhaitez utiliser une mise en page étendue
-        initial_sidebar_state="auto",
-    )
+    st.set_page_config(page_icon="📞", page_title="Amazon Client")
 
     st.title("Amazon Client")
 
