@@ -8,23 +8,19 @@ import urllib.parse
 @st.cache_data
 def search_amazon_data(scannable_id, local_date, route_number):
     cookies = {
-        'ubid-acbfr': '257-2265996-3861609',
-        '_fbp': 'fb.1.1688889150202.664494500',
-        'adobeujs-optin': '%7B%22aam%22%3Atrue%2C%22adcloud%22%3Atrue%2C%22aa%22%3Atrue%2C%22campaign%22%3Afalse%2C%22ecid%22%3Atrue%2C%22livefyre%22%3Afalse%2C%22target%22%3Atrue%2C%22mediaaa%22%3Afalse%7D',
-        'AMCV_5E35755F5B7C1B910A495C46%40AdobeOrg': '1176715910%7CMCIDTS%7C19578%7CMCMID%7C09685279412664892150992027312307073326%7CMCAAMLH-1692118645%7C6%7CMCAAMB-1692118645%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1691521045s%7CNONE%7CvVersion%7C5.4.0%7CMCCIDH%7C-540876677',
-        'mbox': 'PC#40f6ebc7592e48f587b3695926462642.37_0#1754758646|session#d50fa556a4574f88930e0582aa7d1249#1691515706',
-        'adcloud': '{%22_les_lsc%22:%221691513845831%2Camazon.fr%2C1699379845%22%2C%22_les_v%22:%22y%2Camazon.fr%2C1691515645%22}',
-        'i18n-prefs': 'EUR',
-        'x-amz-log-portal-locale': 'fr-FR',
-        'sst-acbfr': 'Sst1|PQHk2jLw7YN8whewhd0X0q5nB2EPXQDh_RfZwQF-brr4UjjLfFivbM7aQREETg3q2qb1EJWExtUDGeC1EvZ4jOT71LJhJXsB07RkCPGTfV_cu7K5_fG56gcFaJo0carqGDI8_AY5Ym6LPDxt8FqiTvvyb3SDwkRBygaWY5VvrJbmXVtU74awmVbNouSwZrBYJNxjYRxcg5mh9upS0lD5MgHZmKDdU0-euxu_dzGChXOWYb__QrBzrhlFU_UYkV6xqv7A',
-        'lc-acbfr': 'fr_FR',
-        'cwr_u': '11afc0a5-bae3-426e-b018-fb8440d1d226',
-        'x-acbfr': '"sxwLBfc93YhSSCATYmpYlSw0NKObrNCrm7f@cdVH?GV?IsHRh8NfwnHz7LrMPPgQ"',
-        'at-acbfr': 'Atza|IwEBIDdZqBtsU_Hubxv_DtMzDEuPcSHNvZbXRGjJF2e37-LeQ6tA-6VkscNQaerEWerQnkoNkLdQ9lA2bwSGqG6cD0q2_hwJBp-s5P3QGofcgyNiL8xGw5utjIZUgUrHMmCPuwJPN3_cbBKbj-2CwUHWG3ySOHweVvSlW8wXZb5_9M1SNKaE0fhD9RvKhtWcYIBXBJODPnxgFVS3_JJ2RbTtnHXMgf6aVGDuS3A9j0MVKBXzSw',
-        'sess-at-acbfr': '"RF+P1GVQfYv8RVHsPJimb9xqpwAkGsJmEm8+iHTGzX0="',
-        'session-id-time': '2082787201l',
-        'session-id': '258-5386277-8061415',
-        'session-token': 'rK9Q3J0KJXBh+n1HeR8pyvUQPH8vGD/ICDIsHoLWe3AckYndix0JM9zzQcoSISfCwDp3a4cmi4ZDcUTGENDNRSjIO1JewZmt2picD5QEsPNOQT8wqoac+QMsQ5hAQAdlxqau+WkuWUJJZYDW8j88MKQmnQ97MUoaemr58A3TUxm/wTyay1iP4eEGzvwLTL4UvGDt3YiJbt6IJNCy5jVp9rbm4bxuuY8C21BIVtbQNXDTUt1TboyLLGzmM7AnkXOX1sOrft/s1S0YLyyPqRNR0EdUrDMxOPwdwrDBHfBfEXW8o8wtaSod0ykgK7T9xVNo1ijG86+/ILBgMZ0H/2qhKEHL9GXJnXo4h7PNpF245Jn15Ih7aBK2lm9mKiV6tJ5A',
+    'ubid-acbfr': '262-6341317-0090447',
+    'lc-acbfr': 'fr_FR',
+    'x-acbfr': '"BwKCSGEBXcVJHytwHNPcI?1XQrx6Oo7iU@52T0JHyaHyYV9MqIR7nXHCSgkjvr8@"',
+    'at-acbfr': 'Atza|IwEBILm0mu0HQMDYQyjFcYE-MYuNehl2vFOCBH6fYWYBINlaTuFJ62gtnOpzYiDKsPNRMCJmk00R8Di9HjQAgUhc7PV79FZ9qKHkTYVQKfDGxYRrZH6QUIWlAK7Wwuc5vX2o6TXeDeHxAAtJwv0p7zKDR0t6TnFRlqc8dw2F80qFUSYfb3vHpCyJomsWXUDZjz2ARk4wSPx9XJgOjwxaU2vsU6KKqlDYDDKLcy-kotj6jiBI5A',
+    'sess-at-acbfr': '"zdnrfxVbDWAXO7jAqNxsfqat1LMgNwwQQQ/qj270Tg8="',
+    'x-amz-log-portal-locale': 'fr-FR',
+    'cwr_u': '3fbea3d5-a1e9-4ac9-b370-b710f089551c',
+    'ak_bmsc': 'AC1C03CED312BED2351E50514B20E657~000000000000000000000000000000~YAAQxNhLF+l8RqePAQAARJRFvhce4IQLRSi5xDgplQcig5zBtM/ebb4e0wVHj17Xb+w43NI4CSsMOf3OpoXbYv5XM9HV2L05KBlnZIkfJhIfQ9IEc3CMOrqlL5RrWBZ/4Mnmezl9/wIwuQVO0f/qLHYOF0NGVWSh7MbonUrcVXS+3lmU0cY6jJGMY2o6MCAiI18N7Gl3alTfD0KqKOL3kyW0F5mwkARTlMx6Iljhiu/cKA8AJhIRxObcfz7tSLFclw6QtCY/elLXP9/76w8hEpoiZ4gkiJ4ZNwrdqHZH7SNZnHGFTkZPo0FolQg7FNbSA7h9QT6eqvJtLeThJ2aUId1sWLL8kJGjK7odxceFFR8gxveKWS2U5/yUWRLhejrbAJZKUqsUSP1gqw==',
+    'session-id': '260-0899321-4052131',
+    'session-token': 'dFXc6jJ/ybcod+q2gowsAFrS2i8z1pLd15ACJRjICVu0Fjmjy9/LhGVxZxsvY6D8V2iQRu0BwkQs8J3vLViRzIBYSxMHtnswSxxBeTD+rv4uBwpajVLW8QAguP2uZrRZ9FBG7HWtfnQIxgWUpo2Ln8S2DWFznD1uedQEOv0yksqRh1PYUJh33feTq9eWG3heYSVj6n2zzZ4gNqbTUwao0V69rSRsYR2wyjP9DQ5Yk2YRIV5WuJKhke/UJMpvK3+R7Z5pSZ96w08vd1k5sXaSo9p62qxDXjjvuYF6DgqRVJ1qMF26s8bggviED0N/ORBamBQnGo3zTCVyVMSVeiWpGGnPxXO4ywHNgArsJB7Vcw+Z8AhOVVKylz7YwLhqGH3k',
+    'session-id-time': '2082787201l',
+    'bm_sv': 'B8CB14A577E6C71315EB5AB043D0D673~YAAQxNhLF3w9ZKePAQAAxACLvhclYeyErnL8GLve7UDiIztwjodk8qBw0wN5kwkN6phVoDmpmdFw1zQVGpg2gkQJoqekfmO5Logx1LQy5gzO7uIhEzt8lruZnq4Rugwe3zIFmcnFDvVM3Z5GtXuQcG0+IUO74/1EL4DDDWSro7lPSF1lk9MEn1F/RQLEdowopF9CaMTw7Gf3jaYK8F5U67egu8OWY2ulmgtlN43qs4X2U9fRwO7VFbWfj4BW+4N0~1',
+    'cwr_s': 'eyJzZXNzaW9uSWQiOiJhOTBjYWQ5NC0zYzZlLTRlOGItYWIzOC1hOGEwNGI4ZTFhZDUiLCJyZWNvcmQiOnRydWUsImV2ZW50Q291bnQiOjI2NTYsInBhZ2UiOnsicGFnZUlkIjoiL29wZXJhdGlvbnMvZXhlY3V0aW9uL2l0aW5lcmFyaWVzIiwicGFyZW50UGFnZUlkIjoiL29wZXJhdGlvbnMvZXhlY3V0aW9uL3JvdXRlcyIsImludGVyYWN0aW9uIjo5MCwicmVmZXJyZXIiOiJodHRwczovL2xvZ2lzdGljcy5hbWF6b24uZnIvb3BlcmF0aW9ucy9leGVjdXRpb24vaXRpbmVyYXJpZXM/b3BlcmF0aW9uVmlldz10cnVlJnByb3ZpZGVyPUFMTF9EUklWRVJTJnNlbGVjdGVkRGF5PTIwMjQtMDUtMjgmc2VydmljZUFyZWFJZD1kNDU5Nzg4Yi02YTczLTQ4ZjktYTcxMy04MWFmYTBjNTliNjYiLCJyZWZlcnJlckRvbWFpbiI6ImxvZ2lzdGljcy5hbWF6b24uZnIiLCJzdGFydCI6MTcxNjg4ODczMTI1Mn19',
     }
 
     params = {
