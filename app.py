@@ -94,12 +94,9 @@ def share_on_whatsapp(result):
     
     # Créez un lien WhatsApp avec le message pré-rempli
     whatsapp_link = f"https://wa.me/?text={urllib.parse.quote_plus(message)}"
-    print("WhatsApp Link:", whatsapp_link)  # Ajoutez cette ligne
+    return whatsapp_link
     
-    # Affichez le lien généré
-    st.success("Lien WhatsApp généré:")
-    st.markdown(f"[Partager sur WhatsApp]({whatsapp_link})", unsafe_allow_html=True)
-    
+        
 def main():
     # Définir l'icône de la page avec un emoji téléphone
     st.set_page_config(page_icon="📞", page_title="Amazon Client")
@@ -129,8 +126,9 @@ def main():
                 st.write("-" * 30)
                 
              # Ajoutez un bouton pour partager sur WhatsApp
-            if st.button("Partager sur WhatsApp"):
-                    share_on_whatsapp(result)
+            whatsapp_link = share_on_whatsapp(result)
+            st.markdown(f'<a href="{whatsapp_link}" target="_blank">Partager sur WhatsApp</a>', unsafe_allow_html=True)
+
 
 # Ajout du pied de page
     st.markdown(
