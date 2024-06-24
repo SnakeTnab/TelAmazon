@@ -89,6 +89,22 @@ def get_info_by_scannable_id(route_data, scannable_id):
     matching_infos = matching_infos[1:]
     return matching_infos
     
+def calculate_percentage_delivered_to_mail_slot(route_data):
+    total_packages = 0
+    delivered_to_mail_slot = 0
+
+    for stop in route_data['routePlan']['stopList']:
+        for package in stop['stopDetails']['packageList']:
+            if package['trObjectState'] == 'DELIVERED':
+                total_packages += 1
+                if package['trObjectReason'] == 'DELIVERED_TO_MAIL_SLOT':
+                    delivered_to_mail_slot += 1
+
+    if total_packages > 0:
+        return (delivered_to_mail_slot / total_packages) * 100
+    else:
+        return 0    
+        
 def share_on_whatsapp(result):
     message = f"Nom: {result['name']}\nAdresse 1: {result['address1']}\nAdresse 2: {result['address2']}\nCode postal: {result['postalCode']}\nVille: {result['city']}\nTéléphone: {result['phone']}"
     
