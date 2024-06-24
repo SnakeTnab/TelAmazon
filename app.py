@@ -128,7 +128,13 @@ def main():
              # Ajoutez un bouton pour partager sur WhatsApp
             whatsapp_link = share_on_whatsapp(result)
             st.markdown(f'<a href="{whatsapp_link}" target="_blank">Partager sur WhatsApp</a>', unsafe_allow_html=True)
-
+            
+        if st.button("Calculer pourcentage livré en boîte aux lettres"):
+                if route_data:
+                    percentage = calculate_percentage_delivered_to_mail_slot(route_data)
+                    st.write(f"Pourcentage de colis livrés en boîte aux lettres: {percentage:.2f}%")
+                else:
+                    st.warning("Veuillez d'abord rechercher et charger les données de la route.")
 
 # Ajout du pied de page
     st.markdown(
