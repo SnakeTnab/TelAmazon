@@ -67,8 +67,11 @@ def search_amazon_data(scannable_id, local_date, route_number):
     else:
         st.error("Échec de la récupération des données logistiques Amazon.")
 
-    infos = get_info_by_scannable_id(route_data, scannable_id)
-    return infos
+     infos = []
+    for route_data in route_responses:
+        infos.extend(get_info_by_scannable_id(route_data, scannable_id))
+
+    return infos, route_responses
 
 def get_info_by_scannable_id(route_data, scannable_id):
     matching_infos = []
