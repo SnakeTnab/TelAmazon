@@ -128,7 +128,8 @@ def main():
              # Ajoutez un bouton pour partager sur WhatsApp
             whatsapp_link = share_on_whatsapp(result)
             st.markdown(f'<a href="{whatsapp_link}" target="_blank">Partager sur WhatsApp</a>', unsafe_allow_html=True)
-            
+             for route_response in route_responses:
+            st.json(route_response)
 
 # Ajout du pied de page
     st.markdown(
