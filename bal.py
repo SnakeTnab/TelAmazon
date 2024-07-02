@@ -30,7 +30,7 @@ def calculate_mailbox_delivery_rate(route_data):
 
 
 def process_routes(prefixed_route_ids, headers):
-    rates = {}
+    rates = []
     for route_url in prefixed_route_ids:
         route_data = fetch_route_data(route_url, headers)
         if route_data:
@@ -38,7 +38,7 @@ def process_routes(prefixed_route_ids, headers):
             route_id = route_url.split('/')[-1]  # extract route_id from route_url
             route_prefix = route_id.split('-')[0]  # extract prefix from route_id
             route_id_without_prefix = route_id.replace(f"{route_prefix}-", "")  # remove prefix from route_id
-            rates[route_id_without_prefix] = f"{rate:.2%}"
+            rates.append([route_id_without_prefix, f"{rate:.2%}"])
     return rates
 
 
@@ -95,10 +95,8 @@ def search_amazon_data(local_date):
         st.subheader(f"Date: {local_date}")
         st.write("")
 
-        # Create a table to display the results
-        table_data = []
-        for route_id, rate in delivery_rates.items():
-            table_data.append([route_id, rate])
+        # Create a table to display the results (only routes and rates)
+        table_data = [[route, rate] for route, rate in delivery_rates]
 
         st.table(table_data)
 
