@@ -99,7 +99,7 @@ def search_amazon_data(local_date):
         import pandas as pd
         df = pd.DataFrame(delivery_rates, columns=["Route", "Rate"])
 
-        st.write(df)
+        st.dataframe(df, width=800)
 
     else:
         st.error(f"Failed to retrieve data: {response.status_code}")
