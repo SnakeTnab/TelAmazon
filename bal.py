@@ -107,6 +107,6 @@ def search_amazon_data(local_date):
 
 # Streamlit UI
 st.title("TNAB Mailbox Delivery")
-local_date = st.text_input("Enter local date (YYYY-MM-DD):", "2024-07-02")
+local_date = st.date_input("Enter local date (YYYY-MM-DD):", "2024-07-02")
 if st.button("Analyser"):
     search_amazon_data(local_date)
