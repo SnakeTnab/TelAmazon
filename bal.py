@@ -91,7 +91,7 @@ def search_amazon_data(local_date):
         delivery_rates = process_routes(prefixed_route_ids, headers)
 
         # Display results using Streamlit
-        st.header("Amazon Logistics Mailbox Delivery Rates")
+        st.header("les taux de livraison en boîte aux lettres")
         st.subheader(f"Date: {local_date}")
         st.write("")
 
@@ -106,7 +106,7 @@ def search_amazon_data(local_date):
 
 
 # Streamlit UI
-st.title("Amazon Logistics Mailbox Delivery Rates")
+st.title("TNAB Mailbox Delivery Rates")
 local_date = st.text_input("Enter local date (YYYY-MM-DD):", "2024-07-02")
 if st.button("Search"):
     search_amazon_data(local_date)
