@@ -97,7 +97,7 @@ def search_amazon_data(local_date):
 
         # Create a DataFrame to display the results
         import pandas as pd
-        df = pd.DataFrame(delivery_rates, columns=["Route", "Rate"])
+        df = pd.DataFrame(delivery_rates, columns=["Route", "Rates"])
 
         st.dataframe(df, width=800, height=600)
 
@@ -106,7 +106,7 @@ def search_amazon_data(local_date):
 
 
 # Streamlit UI
-st.title("TNAB Mailbox Delivery Rates")
+st.title("TNAB Mailbox Delivery")
 local_date = st.text_input("Enter local date (YYYY-MM-DD):", "2024-07-02")
-if st.button("Search"):
+if st.button("Analyser"):
     search_amazon_data(local_date)
