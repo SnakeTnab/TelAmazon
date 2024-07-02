@@ -91,14 +91,15 @@ def search_amazon_data(local_date):
         delivery_rates = process_routes(prefixed_route_ids, headers)
 
         # Display results using Streamlit
-        st.header("Mailbox Delivery Rates")
+        st.header("Amazon Logistics Mailbox Delivery Rates")
         st.subheader(f"Date: {local_date}")
         st.write("")
 
-        # Create a table to display the results (only routes and rates)
-        table_data = [[route, rate] for route, rate in delivery_rates]
+        # Create a DataFrame to display the results
+        import pandas as pd
+        df = pd.DataFrame(delivery_rates, columns=["Route", "Rate"])
 
-        st.table(table_data)
+        st.write(df)
 
     else:
         st.error(f"Failed to retrieve data: {response.status_code}")
