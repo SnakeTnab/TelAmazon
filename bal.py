@@ -39,7 +39,7 @@ def process_routes(prefixed_route_ids, headers):
             route_id = route_url.split('/')[-1]  # extract route_id from route_url
             route_prefix = route_id.split('-')[0]  # extract prefix from route_id
             route_id_without_prefix = route_id.replace(f"{route_prefix}-", "")  # remove prefix from route_id
-            rates.append([route_id_without_prefix, f"{rate:.2%}"])
+            rates.append([route_id_without_prefix, f"{rate:,2%}"])
     return rates
 
 
