@@ -108,7 +108,7 @@ def main():
     # Définir l'icône de la page avec un emoji téléphone
     st.set_page_config(page_icon="📞", page_title="Amazon Client")
 
-    st.title("Amazon Client")
+    st.title("Amazon Client pour MASSI")
 
     local_date = st.date_input("Date :", min_value=datetime(2022, 1, 1), max_value=datetime(2025, 1, 1))
     route_number = st.text_input("Numéro de route :")
