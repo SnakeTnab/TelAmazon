@@ -96,7 +96,7 @@ def search_amazon_data(local_date):
         delivery_rates = process_routes(prefixed_route_ids, headers)
 
         # Display results using Streamlit
-        st.header("les taux de livraison en boîte aux lettres")
+        st.header("les taux de livraison en main propre")
         st.subheader(f"Date: {local_date}")
         st.write("")
 
