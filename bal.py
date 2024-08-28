@@ -107,7 +107,7 @@ def search_amazon_data(local_date):
         df = pd.DataFrame(delivery_rates, columns=["Route", "Rates"])
 
         # Add conditional formatting
-        st.dataframe(df.style.applymap(lambda x: 'background-color: green' if ',' in x and float(x.replace(',', '.').strip('%')) > 50 else 'background-color: red'), width=800, height=600)
+        # st.dataframe(df.style.applymap(lambda x: 'background-color: green' if ',' in x and float(x.replace(',', '.').strip('%')) > 50 else 'background-color: red'), width=800, height=600)
 
     except requests.exceptions.RequestException as e:
         st.error(f"Failed to retrieve data: {e}")
