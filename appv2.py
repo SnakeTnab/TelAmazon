@@ -8,20 +8,21 @@ import urllib.parse
 @st.cache_data
 def search_amazon_data(scannable_id, local_date, route_number):
     cookies = {
-    'lc-acbfr': 'fr_FR',
-    'x-amz-log-portal-locale': 'fr-FR',
-    'cwr_u': '3fbea3d5-a1e9-4ac9-b370-b710f089551c',
-    'i18n-prefs': 'EUR',
-    'ubid-acbfr': '261-3161003-9190349',
-    'x-acbfr': '"wb3elbf21ilNOQyPpgz9Z@6pVE59waPCFCc0REM4K?D3ERJIgnZnnRiYxupAMuD@"',
-    'at-acbfr': 'Atza|IwEBIE5RavpwW_0iHxx5RS6KyZUXUbx4VHV0_LOi71z5zaj_NbvyiYlC_vcdhgYPYOWOeVRaMqcq5HCjBBf62hKZul4wYsFFkck2pVtJD6ccmtn7tMidsLqsJHpZM2ajmEbNQ-eR1OR8t2GvwAqzEjyjMyAj4Uu6YsZrSAh5jE9HxXqma5fqPeWLbwwRAwsGJU_QeuSdd_SrARqeKlPszhzM4UQLRFtn2PcWVh9Y3AkZDYqv6Q',
-    'sess-at-acbfr': '"JUALMi0mz21adDYwUdXsuOC7qMbxyBMROAhB6KJtAHI="',
+    'session-id': '257-9305368-7376529',
     'session-id-time': '2082787201l',
-    'ak_bmsc': 'D794ED3D9DCA2C6BDD1494301730E770~000000000000000000000000000000~YAAQz9hLF0aeqf+QAQAA7Ba0Jxhgd3LyPJkhxeSK3gnTS9VdvSHSB61owUTrlwYyb5Z+V+w50iY7rAhqKASxYoeUlry1opcuOU70XKwRAQ5UaGaIwNThQILwOqBvOTGvLUzRxXmzuO8f6oB8kiuh1kyY46eMmTMkCoHj0Jnvyh4jA62pHCRvHUc9o0YJjBNEuT2sP1kVkhU7FwlXzMjdKJwrZ6UXvO95obTJHi9b2KDHbTzz+STQu2fvExpv09wzQyqd30Lo3O8CEyzqcGAYxnB1TdriXMRbM2h2m49C508TS/Uijm9iVt1EgoUYi0E5XRaCA9t1pGQ2rTdXJ1V7llOTi3xKGd8Dx9iQow43Hn8rwN1bpYVO/MgGBPdBSI+32/rnO+kLd1qwrg==',
-    'bm_sv': '68E5CF70457B9B56DC026F3AD12854E3~YAAQz9hLF8DGqf+QAQAANXa1JxheDtWgBQ1Iho3Tz2tMP46EcsN5F2eZMC/ruflkOK8KdgPT5lNHHoTfGHWo1E7GzwXxkaapLCazbp0QuP2qQEZi3bPePiMhoZ7ugmsx8OUmef5tXkS+iSXsDd9ACmbR9ToVe/lv8w6X7D+3Yh1InKyqJdI3/RhNkvelwaZuNnBo9ixj1hxioY1HJJWuOmcSCkM6uNG0cAt3kFMys6RgNBsxmyzPrwCdJAzMbeI=~1',
-    'session-id': '258-3085241-4888146',
-    'session-token': 'XCshqmMy2tEksfNzi0AOmv+If8ug67KKfsLdr4vu1bE5PPX8TR8meQujgZ5efPEEMegesYZsQFr8DXOITAd2shjCa/gSNVDE5/ZqwaTlfGXhmvtbr0Txfh36FzmMIedK42wAOXdZ/NwgMgbjVvdLZjU73diLYTOnXGeMkgzKetQl1Pc501bwxsUZIuUeIG5pIgyEbM9C4+xIc9vhyJYYq/3cdfLUtq3F4cHjPX3pLtuvtOCWoF5eY8ItHdTAGEYFMO6JzyXDuCCnBJ3vGrV8ajw5ZbBno48WiyqTl5gpvE6uOWkyro5YlKFxUrYsPYAhoxhCUloxqJ4B5fau7j7bKc/waYRcK3ehdvErBZcS0VQ',
-    'cwr_s': 'eyJzZXNzaW9uSWQiOiIyYmQxMGU2MS1jMzY2LTQzMzUtYWIzOC00NGI4MTE0MWFjZjEiLCJyZWNvcmQiOnRydWUsImV2ZW50Q291bnQiOjI0OTMsInBhZ2UiOnsicGFnZUlkIjoiL29wZXJhdGlvbnMvZXhlY3V0aW9uL2l0aW5lcmFyaWVzIiwicGFyZW50UGFnZUlkIjoiL29wZXJhdGlvbnMvZXhlY3V0aW9uL3JvdXRlcyIsImludGVyYWN0aW9uIjoxMzEsInJlZmVycmVyIjoiaHR0cHM6Ly9sb2dpc3RpY3MuYW1hem9uLmZyL2FjY291bnQtbWFuYWdlbWVudC9kZWxpdmVyeS1hc3NvY2lhdGVzP3Byb3ZpZGVyVHlwZT1EQSZwcm92aWRlclN0YXR1cz1PTkJPQVJESU5HJnNlYXJjaFN0YXJ0PTAmc2VhcmNoU2l6ZT0xMDAiLCJyZWZlcnJlckRvbWFpbiI6ImxvZ2lzdGljcy5hbWF6b24uZnIiLCJzdGFydCI6MTcyMjk0ODQyODAyNn19',
+    'ubid-acbuk': '259-3886438-1172934',
+    'session-token': 'TOYGxkagi/LbezUEOr4ik4ACtGgPCM/yC0eZHX5NS6hmJN3XVzxnWweCPaK5Z0qLS2lTEqd3ykC7P9AJF7ECeijkg7rjnWUz1WtGJT0iG3smjwnMo7bdzDVoWyqoDRCR8Y92fs++8X08VQ/Cvq8BAsts7ECsmlBe4yOaCoKLASmrZ8Wv6i/xYrX905PhxFEay4PugLw0CHRHCrWEUu9UYO+HBaKfjxugfkzVISlHuUGS19eWmljLBDfJcSihCDZ6OofKRHLHJrVmr0RzB0LdAZ4OvWEVY6lvqiX7EBVZeBzfwR/CoKnnrvfLHZL1ZUcVc944kYdFHYidI0up5ml87I8G21b/IxloabczcchuazE',
+    'x-amz-log-portal-locale': 'en-GB',
+    'cwr_u': 'b902c16b-a658-432d-be56-c64529dc87c3',
+    'lc-acbuk': 'en_GB',
+    'csm-hit': 'tb:s-76XZ6J2BRK7K5C9MCHZY^|1705600193184&t:1705600194211&adb:adblk_no',
+    'i18n-prefs': 'GBP',
+    'av-timezone': 'Europe/Paris',
+    'JSESSIONID': 'DD9D6A753E8A68E56BB4947B18152538',
+    'cwr_s': 'eyJzZXNzaW9uSWQiOiJiNjk0YmQ4MC1lMWQ1LTRkMTUtYTdjNy1mNDUxOWZhODkxNjkiLCJyZWNvcmQiOnRydWUsImV2ZW50Q291bnQiOjgxNCwicGFnZSI6eyJwYWdlSWQiOiIvaW50ZXJuYWwvb3BlcmF0aW9ucy9leGVjdXRpb24vZHYvcm91dGVzLzY0MDU4MDYtMTE5IiwicGFyZW50UGFnZUlkIjoiL2ludGVybmFsL29wZXJhdGlvbnMvZXhlY3V0aW9uL2R2L3JvdXRlcyIsImludGVyYWN0aW9uIjoyOCwicmVmZXJyZXIiOiJodHRwczovL2xvZ2lzdGljcy5hbWF6b24uY28udWsvcGVyZm9ybWFuY2U/cGFnZUlkPWRzcF9kYXNoYm9hcmRfb3ZlcnZpZXcmc3RhdGlvbj1EWEUxJmNvbXBhbnlJZD1lNmRlYWY3OS1iODViLTQ0MjEtOTMwMS1kYThiYTliMzVkY2ImdGFiSWQ9b3ZlcnZpZXctZHNwLXdlZWtseS10YWImdGltZUZyYW1lPVdlZWtseSZ0bz0yMDI0LVc0MiIsInJlZmVycmVyRG9tYWluIjoibG9naXN0aWNzLmFtYXpvbi5jby51ayIsInN0YXJ0IjoxNzI5NTI0NDc4MDA5fX0=',
+    'amzn_sso_rfp': 'ecee0cc1f91dfde1',
+    'logistics-federate-token': 'eyJraWQiOiJiNzU3Y2QwNmY0N2YzMmIzOTQ1MjBmM2Q0MDljZTQyZCIsInR5cCI6IkpXVCIsImFsZyI6IlJTMjU2In0.eyJhdWQiOiJMb2dpc3RpY3NQb3J0YWwtRVUtUHJvZC1GZWRlcmF0ZVByb2ZpbGUiLCJzdWIiOiJqdGlnaGlsZSIsIm5iZiI6MTcyOTUxNjk1NywiYXV0aF90aW1lIjoxNzI5NTE2NjQ1LCJpc3MiOiJodHRwczovL2lkcC5mZWRlcmF0ZS5hbWF6b24uY29tIiwiZXhwIjoxNzI5NTMxMzU3LCJmZWRlcmF0ZV90b2tlbl9wdXJwb3NlIjoiaWRfdG9rZW4iLCJpYXQiOjE3Mjk1MTY5NTcsIm5vbmNlIjoibm9uY2UiLCJqdGkiOiJJRC4xZjU5YmRkZC04MDM2LTQ2MDYtYmYwNC1lMTczMzg3YzZhNjAifQ.mQlZD7VgcqbYL5RWhW696K4GDso-3wEFqhKqqMg56sbwwlQ2jYp2Vj86UROys3a9BQbVBBfBkB6aSbhwOzpOIa4csg6FAingOogjrr0gN7CV4hg9H8I2IhLDw4P-g2kO8ZceE8Y493NjZHVDZ2pjOaolFGZTEwMagkbvlbLn86l3aObLmvRwzSXJzlMHEdOKiuCe5s-8ZrFr16CQQ0VxevzOyUqziI_oYR4XOBrlHEgVRHQOHUeVZB4CPYF8ByExvugcvdhx_apN3saNSAe3OQ7ZBKMLa2mIMkZBz2n_5P3fYSBcPMR3v9TRsU6au9VcgBNPi_czcI11HGnhiPhkpg',
+    'logistics-federate-user-id': 'jtighile',
 }
 
     params = {
@@ -29,18 +30,18 @@ def search_amazon_data(scannable_id, local_date, route_number):
         'serviceAreaId': 'd459788b-6a73-48f9-a713-81afa0c59b66',
     }
 
-    response = requests.get('https://logistics.amazon.fr/operations/execution/api/summaries', params=params,
+    response = requests.get('https://logistics.amazon.co.uk/internal/operations/execution/api/route-summaries', params=params,
                             cookies=cookies)
 
     if response.status_code == 200:
         data = json.loads(response.text)
         all_route_ids = []
 
-        for itinerary in data['itinerarySummaries']:
+        for itinerary in data['rmsRouteSummaries']:
             route_ids = [route['routeId'] for route in itinerary['routes']]
             all_route_ids.extend(route_ids)
 
-        prefixed_route_ids = [f"https://logistics.amazon.fr/operations/execution/api/routes/{route_id}" for route_id in
+        prefixed_route_ids = [f"https://logistics.amazon.co.uk/internal/operations/execution/api/route-details/{route_id}" for route_id in
                               all_route_ids]
 
         if route_number.isdigit():
