@@ -4,6 +4,7 @@ import json
 from datetime import datetime, date
 import requests
 import urllib.parse
+import os
 
 # Fichier pour stocker les données des demandes
 REQUESTS_FILE = "requests.json"
@@ -26,12 +27,23 @@ def authenticate(username, password):
     return False
 
 # === Limitation des demandes ===
+# Vérification de l'existence du fichier requests.json et création s'il n'existe pas
+if not os.path.exists(REQUESTS_FILE):
+    with open(REQUESTS_FILE, "w") as file:
+        json.dump({}, file)
+
 # Charger les données des demandes
 def load_requests():
     try:
         with open(REQUESTS_FILE, "r") as file:
-            return json.load(file)
+            data = file.read().strip()  # Lire le contenu du fichier
+            if not data:  # Si le fichier est vide
+                return {}
+            return json.loads(data)
     except FileNotFoundError:
+        return {}
+    except json.JSONDecodeError:
+        st.error("Erreur de format du fichier de demandes.")
         return {}
 
 # Enregistrer les données des demandes
