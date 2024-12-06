@@ -3,10 +3,26 @@ import requests
 import json
 from datetime import datetime
 import urllib.parse
+import concurrent.futures
+
+# Mise en cache des données
+@st.cache_data
+def fetch_route_data(route_link, cookies):
+    """Récupère les données d'une route spécifique."""
+    try:
+        response = requests.get(route_link, cookies=cookies)
+        if response.status_code == 200:
+            return json.loads(response.text)
+        else:
+            st.error(f"Échec pour l'URL {route_link} (Code : {response.status_code})")
+    except Exception as e:
+        st.error(f"Erreur lors de la récupération de {route_link} : {e}")
+    return None
 
 
 @st.cache_data
 def search_amazon_data(local_date):
+    """Récupère toutes les données des routes pour une date donnée."""
     cookies = {
     'lc-acbfr': 'fr_FR',
     'x-amz-log-portal-locale': 'fr-FR',
@@ -44,15 +60,14 @@ def search_amazon_data(local_date):
             f"https://logistics.amazon.fr/operations/execution/api/routes/{route_id}" for route_id in all_route_ids
         ]
 
-        # Récupérer les données de chaque route
+        # Récupérer les données en parallèle
         all_route_data = []
-        for route_link in prefixed_route_ids:
-            route_response = requests.get(route_link, cookies=cookies)
-            if route_response.status_code == 200:
-                route_data = json.loads(route_response.text)
-                all_route_data.append(route_data)
-            else:
-                st.error(f"Échec pour l'URL {route_link} (Code : {route_response.status_code})")
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            future_to_url = {executor.submit(fetch_route_data, route_link, cookies): route_link for route_link in prefixed_route_ids}
+            for future in concurrent.futures.as_completed(future_to_url):
+                route_data = future.result()
+                if route_data:
+                    all_route_data.append(route_data)
 
         return all_route_data
     else:
@@ -61,26 +76,25 @@ def search_amazon_data(local_date):
 
 
 def extract_all_scannable_ids(route_data_list):
-    all_scannable_infos = []
-
-    for route_data in route_data_list:
-        for stop in route_data['routePlan']['stopList']:
-            for package in stop['stopDetails']['packageList']:
-                address_info = stop['stopDetails']['address']
-                all_scannable_infos.append({
-                    'scannableId': package['scannableId'],
-                    'name': address_info['name'],
-                    'address1': address_info['address1'],
-                    'address2': address_info.get('address2', ''),
-                    'postalCode': address_info['postalCode'],
-                    'city': address_info['city'],
-                    'phone': address_info.get('phone', '')
-                })
-
-    return all_scannable_infos
+    """Extrait tous les scannableId et leurs informations associées."""
+    return [
+        {
+            'scannableId': package['scannableId'],
+            'name': stop['stopDetails']['address']['name'],
+            'address1': stop['stopDetails']['address']['address1'],
+            'address2': stop['stopDetails']['address'].get('address2', ''),
+            'postalCode': stop['stopDetails']['address']['postalCode'],
+            'city': stop['stopDetails']['address']['city'],
+            'phone': stop['stopDetails']['address'].get('phone', '')
+        }
+        for route_data in route_data_list
+        for stop in route_data['routePlan']['stopList']
+        for package in stop['stopDetails']['packageList']
+    ]
 
 
 def share_on_whatsapp(result):
+    """Crée un lien pour partager les informations sur WhatsApp."""
     message = f"Nom: {result['name']}\nAdresse 1: {result['address1']}\nAdresse 2: {result['address2']}\nCode postal: {result['postalCode']}\nVille: {result['city']}\nTéléphone: {result['phone']}"
     whatsapp_link = f"https://wa.me/?text={urllib.parse.quote_plus(message)}"
     return whatsapp_link
@@ -90,36 +104,41 @@ def main():
     # Définir l'icône de la page avec un emoji téléphone
     st.set_page_config(page_icon="📞", page_title="Amazon Client")
 
-    st.title("Amazon Client - Récupération de tous les Scannable IDs")
+    st.title("Amazon Client")
 
     local_date = st.date_input("Date :", min_value=datetime(2022, 1, 1), max_value=datetime(2025, 1, 1))
 
-    if st.button("Rechercher toutes les données"):
+    if st.button("Rechercher"):
         formatted_date = local_date.strftime("%Y-%m-%d")
-        route_data_list = search_amazon_data(formatted_date)
+        
+        # Mesurer le temps de récupération des données
+        with st.spinner("Récupération des données..."):
+            route_data_list = search_amazon_data(formatted_date)
 
-        if route_data_list:
-            scannable_infos = extract_all_scannable_ids(route_data_list)
+        if not route_data_list:
+            st.warning("Aucune donnée de route trouvée.")
+        else:
+            st.success("Données récupérées avec succès.")
+            
+            # Extraction des scannable IDs
+            scannable_ids = extract_all_scannable_ids(route_data_list)
 
-            if not scannable_infos:
-                st.warning("Aucun scannable ID trouvé.")
+            if not scannable_ids:
+                st.warning("Aucun scannableId trouvé.")
             else:
-                for info in scannable_infos:
-                    st.write("Scannable ID :", info['scannableId'])
-                    st.write("Nom :", info['name'])
-                    st.write("Adresse 1 :", info['address1'])
-                    st.write("Adresse 2 :", info['address2'])
-                    st.write("Code postal :", info['postalCode'])
-                    st.write("Ville :", info['city'])
-                    st.write("Téléphone :", info['phone'])
+                for result in scannable_ids:
+                    st.write("Scannable ID :", result['scannableId'])
+                    st.write("Nom :", result['name'])
+                    st.write("Adresse 1 :", result['address1'])
+                    st.write("Adresse 2 :", result['address2'])
+                    st.write("Code postal :", result['postalCode'])
+                    st.write("Ville :", result['city'])
+                    st.write("Téléphone :", result['phone'])
                     st.write("-" * 30)
 
-                    # Lien WhatsApp pour partager les informations
-                    whatsapp_link = share_on_whatsapp(info)
-                    st.markdown(
-                        f'<a href="{whatsapp_link}" target="_blank">Partager {info["scannableId"]} sur WhatsApp</a>',
-                        unsafe_allow_html=True
-                    )
+                    # Lien WhatsApp
+                    whatsapp_link = share_on_whatsapp(result)
+                    st.markdown(f'<a href="{whatsapp_link}" target="_blank">Partager sur WhatsApp</a>', unsafe_allow_html=True)
 
     # Ajout du pied de page
     st.markdown(
