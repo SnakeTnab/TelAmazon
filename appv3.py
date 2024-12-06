@@ -62,7 +62,7 @@ def can_request_today(username):
     if today not in user_requests:
         user_requests[today] = 0
 
-    if user_requests[today] < 2:
+    if user_requests[today] < 20:
         user_requests[today] += 1
         save_requests(requests_data)
         return True
