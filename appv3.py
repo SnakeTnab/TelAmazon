@@ -1,32 +1,25 @@
 import streamlit as st
-import hashlib
 import json
 from datetime import datetime, date
 import requests
-import urllib.parse
 import os
-import bcrypt
 import logging
 
 # Fichier pour stocker les données des demandes
 REQUESTS_FILE = "requests.json"
 
 # === Authentification ===
-# Fonction pour hacher les mots de passe avec bcrypt
-def hash_password(password):
-    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+# Configuration des utilisateurs (mot de passe en clair)
+users = {
+    "user1": {"name": "Alice", "password": "password123"},
+    "user2": {"name": "Bob", "password": "mypassword"},
+}
 
 # Fonction pour vérifier le mot de passe
 def authenticate(username, password):
-    if username in users and bcrypt.checkpw(password.encode(), users[username]["password"].encode()):
+    if username in users and users[username]["password"] == password:
         return True
     return False
-
-# Configuration des utilisateurs (mots de passe hachés)
-users = {
-    "user1": {"name": "Alice", "password": hash_password("password123")},
-    "user2": {"name": "Bob", "password": hash_password("mypassword")},
-}
 
 # === Limitation des demandes ===
 # Vérification de l'existence du fichier requests.json et création s'il n'existe pas
@@ -186,4 +179,5 @@ else:
     if st.button("Rechercher"):
         infos = search_amazon_data(scannable_id, local_date, route_number)
         st.write(infos)
-        st.button("Se déconnecter", on_click=lambda: st.session_state.clear())
+
+    st.button("Se déconnecter", on_click=lambda: st.session_state.clear())
