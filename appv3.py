@@ -33,7 +33,7 @@ def search_amazon_data_by_route(local_date, route_number):
         data = json.loads(response.text)
         all_route_ids = []
 
-        st.write("Itinéraires trouvés :", data['itinerarySummaries'])
+
 
         for itinerary in data['itinerarySummaries']:
             route_ids = [route['routeId'] for route in itinerary['routes']]
