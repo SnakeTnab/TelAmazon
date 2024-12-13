@@ -51,7 +51,6 @@ def search_amazon_data_by_route(local_date, route_number):
                         route_link = f"https://logistics.amazon.fr/operations/execution/api/routes/{route_id}"
                         
                         # Afficher les liens générés
-                        st.write("Lien de route testé :", route_link)
 
                         route_response = requests.get(route_link, cookies=cookies)
 
